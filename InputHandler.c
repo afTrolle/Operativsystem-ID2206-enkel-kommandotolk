@@ -49,6 +49,10 @@ void changeDir(char * shellArgs[]) {
 /* check if any specific input has been made (exit , cd) */
 void handelInput(char * shellArgs[], int numArgs) {
 
+	if (numArgs == 0 ){	/* no command was sent*/
+		return;
+	}
+
 	/*user typed exit time  so we exit here*/
 	if (strcmp(shellArgs[0], "exit") == 0) {
 
@@ -76,8 +80,12 @@ void execCommand(char * shellArgs[], int numArgs) {
 	int ret = strcmp(shellArgs[numArgs - 1], "&");
 
 	if (ret == 0) {
+
 		/* remove & from process call */
-		shellArgs[numArgs - 1][0] = '\0';
+		free(shellArgs[numArgs -1]);
+		shellArgs[numArgs -1] = 0;
+		decrementNumArgs();
+
 		startBackGroundProcess(shellArgs);
 	} else {
 		startForegroundprocess(shellArgs);

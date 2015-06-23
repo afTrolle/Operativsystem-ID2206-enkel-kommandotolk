@@ -12,6 +12,7 @@ void getInput();
 void formatInput();
 void freeArgs();
 
+void decrementNumArgs();
 #ifndef SIGNALDETECTION
 #define SIGNALDETECTION 0 /* SIGNALDETECTION == 0 , pooling method*/
 #endif /* SIGNALDETECTION */

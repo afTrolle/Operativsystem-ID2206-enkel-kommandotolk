@@ -73,10 +73,10 @@ void formatInput() {
 
 	char *ptr = inputBuffer;
 	char *saveptr = 0;
-	char *token;
+	char *token = NULL;
 
 	/* loops through input and divides the input on spaces  */
-	while ((token = strtok_r(ptr, " ", &saveptr)) != NULL) {
+	while ((token = strtok_r(ptr," \n", &saveptr)) != NULL) {
 		/*allocates memory for input argument */
 		shellArgs[argsCounter] = malloc(strlen(token));
 		/* copy argument to args array */
@@ -87,11 +87,6 @@ void formatInput() {
 		argsCounter++;
 	}
 
-	/* removes new line from last argument and replace it with \0 empty char */
-	int len;
-	len = strlen(shellArgs[argsCounter - 1]);
-	if (shellArgs[argsCounter - 1][len - 1] == '\n')
-		shellArgs[argsCounter - 1][len - 1] = '\0';
 }
 
 
@@ -100,7 +95,12 @@ void freeArgs(){
 	while(argsCounter > 0){
 		argsCounter--;
 		free (shellArgs[argsCounter]);
+		shellArgs[argsCounter] = 0;
 	}
 
+}
+
+void decrementNumArgs(){
+	argsCounter--;
 }
 
